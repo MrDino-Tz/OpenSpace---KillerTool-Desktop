@@ -11,7 +11,7 @@ fn create_main_window(app: &tauri::AppHandle) -> Result<(), tauri::Error> {
         "main",
         tauri::WebviewUrl::App("index.html".into()),
     )
-    .title("OpenSpace KillerTool")
+    .title("")
     .inner_size(1280.0, 800.0)
     .min_inner_size(800.0, 600.0)
     .decorations(false)
@@ -31,6 +31,7 @@ pub fn run() {
         .plugin(tauri_plugin_window_state::Builder::default().build())
         .plugin(tauri_plugin_store::Builder::default().build())
         .plugin(tauri_plugin_notification::init())
+        .plugin(tauri_plugin_http::init())
         .setup(|app| {
             let _ = create_main_window(app.handle());
             Ok(())

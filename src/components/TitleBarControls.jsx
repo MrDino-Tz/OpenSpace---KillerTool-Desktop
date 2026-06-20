@@ -2,10 +2,42 @@ import { useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import CloseOutlined from '@ant-design/icons/CloseOutlined';
-import MinusOutlined from '@ant-design/icons/MinusOutlined';
-import BorderOutlined from '@ant-design/icons/BorderOutlined';
-import SwitcherOutlined from '@ant-design/icons/SwitcherOutlined';
+
+const iconSvgProps = {
+  width: 16,
+  height: 16,
+  viewBox: '0 0 16 16',
+  fill: 'none',
+  stroke: 'currentColor',
+  strokeWidth: 1.4,
+  strokeLinecap: 'round'
+};
+
+const MinusIcon = () => (
+  <svg {...iconSvgProps}>
+    <line x1="3" y1="8" x2="13" y2="8" />
+  </svg>
+);
+
+const MaximizeIcon = () => (
+  <svg {...iconSvgProps}>
+    <rect x="2.5" y="2.5" width="11" height="11" rx="1" strokeWidth="1.4" fill="none" />
+  </svg>
+);
+
+const RestoreIcon = () => (
+  <svg {...iconSvgProps}>
+    <rect x="4.5" y="1" width="10.5" height="10.5" rx="1" strokeWidth="1.2" fill="currentColor" fillOpacity={0.15} />
+    <rect x="1" y="4.5" width="10.5" height="10.5" rx="1" strokeWidth="1.3" fill="none" />
+  </svg>
+);
+
+const CloseIcon = () => (
+  <svg {...iconSvgProps}>
+    <line x1="3.5" y1="3.5" x2="12.5" y2="12.5" />
+    <line x1="12.5" y1="3.5" x2="3.5" y2="12.5" />
+  </svg>
+);
 
 export default function TitleBarControls() {
   const [maximized, setMaximized] = useState(false);
@@ -54,6 +86,9 @@ export default function TitleBarControls() {
     minWidth: 46,
     height: '100%',
     color: 'text.secondary',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     '&:hover': { bgcolor: 'action.hover' }
   };
 
@@ -62,19 +97,22 @@ export default function TitleBarControls() {
     minWidth: 46,
     height: '100%',
     color: 'text.secondary',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     '&:hover': { bgcolor: '#e81123', color: 'white' }
   };
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', height: '100%', ml: 'auto' }}>
       <IconButton onClick={minimize} sx={btnSx} disableRipple>
-        <MinusOutlined style={{ fontSize: 14, strokeWidth: 2 }} />
+        <MinusIcon />
       </IconButton>
       <IconButton onClick={toggleMaximize} sx={btnSx} disableRipple>
-        {maximized ? <SwitcherOutlined style={{ fontSize: 12 }} /> : <BorderOutlined style={{ fontSize: 14 }} />}
+        {maximized ? <RestoreIcon /> : <MaximizeIcon />}
       </IconButton>
       <IconButton onClick={close} sx={closeSx} disableRipple>
-        <CloseOutlined style={{ fontSize: 14 }} />
+        <CloseIcon />
       </IconButton>
     </Box>
   );
