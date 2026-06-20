@@ -16,6 +16,17 @@ Built with performance, privacy, and aesthetic excellence in mind, all tools run
 
 ---
 
+## 🎯 Target Audience
+
+OpenSpace - KillerTools serves as a **privacy-first, offline-capable Swiss Army Knife** tailored for:
+
+*   **💻 Software Developers & Engineers:** Generate secure API keys, encode text to binary, draft READMEs, and use developer-focused utilities entirely offline without breaking workflow.
+*   **🎨 UI/UX Designers & Frontend Devs:** Quickly convert colors with accessibility checks, generate variations, resize images, and find emojis without opening heavy design software.
+*   **🔐 Security Professionals & Sysadmins:** Confidently generate and analyze passwords or verify PDF digital signatures completely client-side—ensuring sensitive data never leaves your device.
+*   **⚡ Power Users & Digital Workers:** Access an all-in-one suite for document editing, currency conversion, and system tools like screen recording and clipboard management (Desktop edition).
+
+---
+
 ## 🚀 Key Features
 
 ### 🔐 Crypto & Security

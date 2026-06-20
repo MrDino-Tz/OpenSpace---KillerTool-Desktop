@@ -9,6 +9,7 @@ import Toolbar from '@mui/material/Toolbar';
 import AppBarStyled from './AppBarStyled';
 import HeaderContent from './HeaderContent';
 import IconButton from 'components/@extended/IconButton';
+import TitleBarControls from 'components/TitleBarControls';
 
 import { handlerDrawerOpen, useGetMenuMaster } from 'api/menu';
 import { DRAWER_WIDTH, MINI_DRAWER_WIDTH } from 'config';
@@ -30,7 +31,7 @@ export default function Header() {
 
   // common header
   const mainHeader = (
-    <Toolbar>
+    <Toolbar data-tauri-drag-region>
       <IconButton
         aria-label="open drawer"
         onClick={() => handlerDrawerOpen(!drawerOpen)}
@@ -47,6 +48,7 @@ export default function Header() {
         {!drawerOpen ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
       </IconButton>
       {headerContent}
+      <TitleBarControls />
     </Toolbar>
   );
 
@@ -59,7 +61,7 @@ export default function Header() {
       borderBottom: '1px solid',
       borderBottomColor: 'divider',
       zIndex: 1200,
-      width: { xs: '100%', lg: drawerOpen ? `calc(100% - ${DRAWER_WIDTH}px)` : `calc(100% - ${MINI_DRAWER_WIDTH}px)` }
+      width: '100%'
     }
   };
 
