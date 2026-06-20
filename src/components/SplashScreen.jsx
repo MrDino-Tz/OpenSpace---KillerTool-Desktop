@@ -23,7 +23,7 @@ export default function SplashScreen({ onDone }) {
         position: 'fixed', inset: 0, zIndex: 99999,
         display: 'flex', flexDirection: 'column',
         alignItems: 'center', justifyContent: 'center',
-        bgcolor: theme.palette.background.default,
+        bgcolor: 'transparent',
         opacity: fadeOut ? 0 : 1,
         transition: 'opacity 0.5s ease-out',
         pointerEvents: fadeOut ? 'none' : 'auto'
