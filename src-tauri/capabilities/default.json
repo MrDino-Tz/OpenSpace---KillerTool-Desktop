@@ -4,6 +4,7 @@
   "windows": ["main", "confirm-close"],
   "permissions": [
     "core:default",
+    "core:event:default",
     "core:window:allow-create",
     "core:webview:allow-create-webview-window",
     "dialog:default",
@@ -28,6 +29,9 @@
     {
       "identifier": "fs:allow-mkdir",
       "allow": [{ "path": "**" }]
-    }
+    },
+    "window-state:default",
+    "store:default",
+    "notification:default"
   ]
 }

@@ -936,7 +936,7 @@
     ignore "^5.1.8"
     p-map "^4.0.0"
 
-"@tauri-apps/api@^2.11.0", "@tauri-apps/api@^2.11.1":
+"@tauri-apps/api@^2.11.0", "@tauri-apps/api@^2.11.1", "@tauri-apps/api@^2.8.0":
   version "2.11.1"
   resolved "https://registry.npmjs.org/@tauri-apps/api/-/api-2.11.1.tgz"
   integrity sha512-M2FPuYND2m+wh5hfW9ZpSdxMPdEJovPBWwoHJmwUpysTYNHaOkVFN419m/K0LIgjb/7KU2vBgsUepJWugQCvAA==
@@ -976,6 +976,27 @@
   integrity sha512-9Lz+Jopp6QyeEWhlpkMx4R/+P9HgR+AVAI4vOZhlT8Xaymtz8iVI/Ov984/XTqgJz/5gz5NretqPB/XEMS3NhQ==
   dependencies:
     "@tauri-apps/api" "^2.11.0"
+
+"@tauri-apps/plugin-notification@^2.3.3":
+  version "2.3.3"
+  resolved "https://registry.npmjs.org/@tauri-apps/plugin-notification/-/plugin-notification-2.3.3.tgz"
+  integrity sha512-Zw+ZH18RJb41G4NrfHgIuofJiymusqN+q8fGUIIV7vyCH+5sSn5coqRv/MWB9qETsUs97vmU045q7OyseCV3Qg==
+  dependencies:
+    "@tauri-apps/api" "^2.8.0"
+
+"@tauri-apps/plugin-store@^2.4.3":
+  version "2.4.3"
+  resolved "https://registry.npmjs.org/@tauri-apps/plugin-store/-/plugin-store-2.4.3.tgz"
+  integrity sha512-9LWPj9yMphRi9czEtUv87XHbl1b6xgd9EXpPrUnq6nG7+nbtoF84d4Kwz9xhAv/Hf30sr58pq7EOlyI936y8qw==
+  dependencies:
+    "@tauri-apps/api" "^2.11.0"
+
+"@tauri-apps/plugin-window-state@^2.4.1":
+  version "2.4.1"
+  resolved "https://registry.npmjs.org/@tauri-apps/plugin-window-state/-/plugin-window-state-2.4.1.tgz"
+  integrity sha512-OuvdrzyY8Q5Dbzpj+GcrnV1iCeoZbcFdzMjanZMMcAEUNy/6PH5pxZPXpaZLOR7whlzXiuzx0L9EKZbH7zpdRw==
+  dependencies:
+    "@tauri-apps/api" "^2.8.0"
 
 "@types/babel__core@^7.20.5":
   version "7.20.5"
