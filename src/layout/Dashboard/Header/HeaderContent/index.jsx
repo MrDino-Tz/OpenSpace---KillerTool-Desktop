@@ -72,7 +72,8 @@ export default function HeaderContent() {
   return (
     <>
       {!downLG && <Search />}
-      {downLG && <Box sx={{ flexGrow: 1, ml: 1 }} />}
+      {/* Spacer — pushes icons to far right on both desktop and mobile */}
+      <Box sx={{ flexGrow: 1 }} />
 
       {/* GitHub Repo Icon */}
       <IconButton
