@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
+import { pickAndReadFile, saveAndWriteFile, browserDownloadFile } from 'utils/fileIO';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
@@ -43,7 +44,6 @@ const HANDLE_SIZE = 12;
 export default function ImageResizer() {
   const theme = useTheme();
   const canvasRef = useRef(null);
-  const fileInputRef = useRef(null);
   const containerRef = useRef(null);
 
   const [originalImg, setOriginalImg] = useState(null);
@@ -267,19 +267,16 @@ export default function ImageResizer() {
     return canvas.toDataURL(`image/${format}`, quality);
   }, [originalImg, outputW, outputH, format, quality, rotation]);
 
-  const handleDownload = useCallback(() => {
+  const handleDownload = useCallback(async () => {
     const dataUrl = getOutputDataURL();
     if (!dataUrl) return;
     const blob = dataURLtoBlob(dataUrl);
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
     const ext = format === 'jpeg' ? 'jpg' : format;
     const baseName = fileName.replace(/\.[^.]+$/, '') || 'image';
-    a.href = url;
-    a.download = `${baseName}_cropped_${outputW}x${outputH}.${ext}`;
-    a.click();
-    URL.revokeObjectURL(url);
-    setSnackMsg(`Downloaded ${a.download}`);
+    const name = `${baseName}_cropped_${outputW}x${outputH}.${ext}`;
+    const saved = await saveAndWriteFile(name, new Uint8Array(await blob.arrayBuffer()), `image/${format === 'jpeg' ? 'jpeg' : format}`);
+    if (!saved) browserDownloadFile(await blob.arrayBuffer(), name, `image/${format}`);
+    setSnackMsg(`Downloaded ${name}`);
     setSnackOpen(true);
   }, [getOutputDataURL, fileName, outputW, outputH, format]);
 
@@ -472,7 +469,10 @@ export default function ImageResizer() {
               <Box
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={handleDrop}
-                onClick={() => fileInputRef.current?.click()}
+                onClick={async () => {
+                  const r = await pickAndReadFile({ filters: [{ name: 'Images', extensions: ['png', 'jpeg', 'jpg', 'webp', 'gif', 'bmp', 'svg'] }] });
+                  if (r) handleFile(new File([r.data], r.name));
+                }}
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
@@ -498,13 +498,6 @@ export default function ImageResizer() {
                 </Typography>
               </Box>
             )}
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              hidden
-              onChange={(e) => { if (e.target.files[0]) handleFile(e.target.files[0]); }}
-            />
           </MainCard>
         </Grid>
 

@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
+import { pickAndReadFile, saveAndWriteFile, browserDownloadFile } from 'utils/fileIO';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
@@ -84,8 +85,6 @@ export default function PhotoEditor() {
   const theme = useTheme();
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
-  const fileInputRef = useRef(null);
-  const overlayInputRef = useRef(null);
   const overlayImgRef = useRef(null);
   const isDrawing = useRef(false);
   const autoPlaceOverlay = useRef(false);
@@ -519,19 +518,19 @@ export default function PhotoEditor() {
 
   // --- Download at full resolution ---
 
-  const handleDownload = useCallback(() => {
+  const handleDownload = useCallback(async () => {
     const base = baseRef.current;
     if (!base) return;
     const nc = document.createElement('canvas');
     nc.width = base.naturalWidth;
     nc.height = base.naturalHeight;
     drawAll(nc, base, elementsRef.current, null);
-    const dataUrl = nc.toDataURL('image/png');
-    const a = document.createElement('a');
+    const blob = await new Promise((resolve) => nc.toBlob(resolve, 'image/png'));
+    if (!blob) return;
     const baseName = fileName.replace(/\.[^.]+$/, '') || 'photo';
-    a.href = dataUrl;
-    a.download = `${baseName}_edited.png`;
-    a.click();
+    const name = `${baseName}_edited.png`;
+    const saved = await saveAndWriteFile(name, new Uint8Array(await blob.arrayBuffer()), 'image/png');
+    if (!saved) browserDownloadFile(await blob.arrayBuffer(), name, 'image/png');
     setSnackMsg('Downloaded edited photo!');
     setSnackOpen(true);
   }, [drawAll, fileName]);
@@ -587,12 +586,13 @@ export default function PhotoEditor() {
                   }} dense>
                     <FontSizeOutlined style={{ marginRight: 8 }} /> Text
                   </MenuItem>
-                  <MenuItem onClick={() => {
+                  <MenuItem onClick={async () => {
                     setAddMenuAnchor(null);
                     if (!baseImage) return;
                     setActiveTool('overlay');
                     autoPlaceOverlay.current = true;
-                    overlayInputRef.current?.click();
+                    const r = await pickAndReadFile({ filters: [{ name: 'Images', extensions: ['png', 'jpeg', 'jpg', 'webp'] }] });
+                    if (r) handleOverlayUpload(new File([r.data], r.name));
                   }} dense>
                     <PictureOutlined style={{ marginRight: 8 }} /> Image Overlay
                   </MenuItem>
@@ -757,17 +757,13 @@ export default function PhotoEditor() {
                     variant="outlined"
                     size="small"
                     startIcon={<UploadOutlined />}
-                    onClick={() => overlayInputRef.current?.click()}
+                    onClick={async () => {
+                      const r = await pickAndReadFile({ filters: [{ name: 'Images', extensions: ['png', 'jpeg', 'jpg', 'webp'] }] });
+                      if (r) handleOverlayUpload(new File([r.data], r.name));
+                    }}
                   >
                     Choose Image
                   </Button>
-                  <input
-                    ref={overlayInputRef}
-                    type="file"
-                    accept="image/*"
-                    hidden
-                    onChange={(e) => { if (e.target.files[0]) handleOverlayUpload(e.target.files[0]); }}
-                  />
 
                   {overlaySrc ? (
                     <Paper
@@ -1096,7 +1092,10 @@ export default function PhotoEditor() {
               <Box
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={(e) => { e.preventDefault(); if (e.dataTransfer.files[0]) handleBaseFile(e.dataTransfer.files[0]); }}
-                onClick={() => fileInputRef.current?.click()}
+                onClick={async () => {
+                  const r = await pickAndReadFile({ filters: [{ name: 'Images', extensions: ['png', 'jpeg', 'jpg', 'webp', 'gif', 'bmp'] }] });
+                  if (r) handleBaseFile(new File([r.data], r.name));
+                }}
                 sx={{
                   flex: 1,
                   display: 'flex',
@@ -1117,13 +1116,6 @@ export default function PhotoEditor() {
                 </Typography>
               </Box>
             )}
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              hidden
-              onChange={(e) => { if (e.target.files[0]) handleBaseFile(e.target.files[0]); }}
-            />
           </MainCard>
         </Grid>
 

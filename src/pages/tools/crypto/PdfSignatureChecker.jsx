@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import * as forge from 'node-forge';
+import { pickAndReadFile } from 'utils/fileIO';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -155,7 +156,10 @@ export default function PdfSignatureChecker() {
           <MainCard title="Upload PDF">
             {!file ? (
               <Box
-                component="label"
+                onClick={async () => {
+                  const r = await pickAndReadFile({ filters: [{ name: 'PDF', extensions: ['pdf'] }] });
+                  if (r) handleFileUpload({ target: { files: [new File([r.data], r.name)] } });
+                }}
                 sx={{
                   border: '2px dashed',
                   borderColor: theme.palette.divider,
@@ -173,17 +177,11 @@ export default function PdfSignatureChecker() {
               >
                 <CloudUploadOutlined style={{ fontSize: 48, color: theme.palette.text.secondary, marginBottom: 16 }} />
                 <Typography variant="h5" sx={{ mb: 1 }}>
-                  Click or drag PDF here
+                  Click to select PDF
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   Supports .pdf files with embedded signatures
                 </Typography>
-                <input
-                  type="file"
-                  accept="application/pdf"
-                  hidden
-                  onChange={handleFileUpload}
-                />
               </Box>
             ) : (
               <Box sx={{ textAlign: 'center', p: 3 }}>
