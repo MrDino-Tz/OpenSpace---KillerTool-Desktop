@@ -2,6 +2,20 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+html, body, #root {
+  height: 100%;
+}
+
+/* Hide native scrollbar but keep scrolling enabled */
+body::-webkit-scrollbar,
+#root::-webkit-scrollbar {
+  display: none;
+}
+body, #root {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
 /* View transitions for theme wave animation */
 ::view-transition-old(root),
 ::view-transition-new(root) {

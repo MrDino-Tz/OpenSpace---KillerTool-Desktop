@@ -20,21 +20,24 @@ const SimpleBarStyle = styled(SimpleBar)(({ theme }) => ({
   maxHeight: '100%',
   '& .simplebar-scrollbar': {
     '&:before': {
-      background: alpha(theme.palette.grey[500], 0.48),
-      ...theme.applyStyles('dark', { background: alpha(theme.palette.grey[200], 0.48) })
+      background: alpha(theme.palette.grey[500], 0.3),
+      borderRadius: 4,
+      ...theme.applyStyles('dark', { background: alpha(theme.palette.grey[400], 0.25) })
     },
     '&.simplebar-visible:before': {
       opacity: 1
     }
   },
   '& .simplebar-track': {
-    zIndex: 1201,
+    zIndex: 1,
+    background: 'transparent',
     '&.simplebar-vertical': {
-      width: 10
+      width: 4,
+      right: 0
     }
   },
   '& .simplebar-track.simplebar-horizontal .simplebar-scrollbar': {
-    height: 6
+    height: 4
   },
   '& .simplebar-mask': {
     zIndex: 'inherit'

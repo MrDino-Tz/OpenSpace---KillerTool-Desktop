@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -21,11 +21,15 @@ export default function DashboardLayout() {
   const { menuMaster, menuMasterLoading } = useGetMenuMaster();
   const drawerOpen = menuMaster?.isDashboardDrawerOpened;
   const downXL = useMediaQuery((theme) => theme.breakpoints.down('xl'));
+  const initial = useRef(true);
 
-  // set media wise responsive drawer
+  // set initial drawer state based on screen size (only on mount)
   useEffect(() => {
-    handlerDrawerOpen(!downXL);
-  }, [downXL]);
+    if (initial.current) {
+      initial.current = false;
+      handlerDrawerOpen(!downXL);
+    }
+  }, []);
 
   const downLG = useMediaQuery((theme) => theme.breakpoints.down('lg'));
 
