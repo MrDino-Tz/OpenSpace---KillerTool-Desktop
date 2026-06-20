@@ -10,7 +10,18 @@
     "beforeBuildCommand": "npm run build"
   },
   "app": {
-    "windows": [],
+    "windows": [
+      {
+        "label": "main",
+        "title": "OpenSpace KillerTool",
+        "width": 1280,
+        "height": 800,
+        "minWidth": 800,
+        "minHeight": 600,
+        "center": true,
+        "decorations": false
+      }
+    ],
     "security": {
       "csp": "default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; worker-src 'self' blob:"
     }
