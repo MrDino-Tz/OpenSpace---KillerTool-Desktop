@@ -72,7 +72,7 @@ export default function HeaderContent() {
   return (
     <>
       {!downLG && <Search />}
-      {downLG && <Box sx={{ width: '100%', ml: 1 }} />}
+      {downLG && <Box sx={{ flexGrow: 1, ml: 1 }} />}
 
       {/* GitHub Repo Icon */}
       <IconButton

@@ -67,11 +67,11 @@ export default function Header() {
   return (
     <>
       {!downLG ? (
-        <AppBarStyled open={drawerOpen} {...appBar}>
+        <AppBarStyled open={drawerOpen} {...appBar} data-tauri-drag-region>
           {mainHeader}
         </AppBarStyled>
       ) : (
-        <AppBar {...appBar}>{mainHeader}</AppBar>
+        <AppBar {...appBar} data-tauri-drag-region>{mainHeader}</AppBar>
       )}
     </>
   );

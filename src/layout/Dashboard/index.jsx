@@ -18,13 +18,16 @@ import { handlerDrawerOpen, useGetMenuMaster } from 'api/menu';
 
 export default function DashboardLayout() {
   const { pathname } = useLocation();
-  const { menuMasterLoading } = useGetMenuMaster();
+  const { menuMaster, menuMasterLoading } = useGetMenuMaster();
+  const drawerOpen = menuMaster?.isDashboardDrawerOpened;
   const downXL = useMediaQuery((theme) => theme.breakpoints.down('xl'));
 
   // set media wise responsive drawer
   useEffect(() => {
     handlerDrawerOpen(!downXL);
   }, [downXL]);
+
+  const downLG = useMediaQuery((theme) => theme.breakpoints.down('lg'));
 
   if (menuMasterLoading) return <Loader />;
 
@@ -33,7 +36,7 @@ export default function DashboardLayout() {
       <Header />
       <Drawer />
 
-      <Box component="main" sx={{ width: 'calc(100% - 260px)', flexGrow: 1, p: { xs: 2, sm: 3 } }}>
+      <Box component="main" sx={{ width: { xs: '100%', lg: `calc(100% - ${!downLG && drawerOpen ? 260 : !downLG ? 60 : 0}px)` }, flexGrow: 1, p: { xs: 2, sm: 3 } }}>
         <Toolbar sx={{ mt: 'inherit' }} />
         <Box
           sx={{

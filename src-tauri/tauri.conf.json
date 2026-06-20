@@ -10,10 +10,12 @@
     "beforeBuildCommand": "npm run build"
   },
   "app": {
+    "withGlobalTauri": true,
     "windows": [
       {
         "label": "main",
         "title": "OpenSpace KillerTool",
+        "url": "index.html",
         "width": 1280,
         "height": 800,
         "minWidth": 800,
