@@ -3,6 +3,7 @@ import { lazy } from 'react';
 // project imports
 import Loadable from 'components/Loadable';
 import DashboardLayout from 'layout/Dashboard';
+import ErrorPage from 'pages/ErrorPage';
 
 // render- Dashboard
 const DashboardDefault = Loadable(lazy(() => import('pages/dashboard/default')));
@@ -40,6 +41,7 @@ const FileMetaReader = Loadable(lazy(() => import('pages/tools/dev-gun/FileMetaR
 const MainRoutes = {
   path: '/',
   element: <DashboardLayout />,
+  errorElement: <ErrorPage />,
   children: [
     {
       path: '/',
