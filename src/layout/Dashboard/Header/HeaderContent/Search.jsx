@@ -33,7 +33,11 @@ import {
   LockOutlined,
   ScissorOutlined,
   EditOutlined,
-  MoneyCollectOutlined
+  MoneyCollectOutlined,
+  CodeOutlined,
+  ApiOutlined,
+  AuditOutlined,
+  QrcodeOutlined
 } from '@ant-design/icons';
 import DownOutlined from '@ant-design/icons/DownOutlined';
 
@@ -52,7 +56,11 @@ const ICON_MAP = {
   LockOutlined: <LockOutlined />,
   SafetyCertificateOutlined: <SafetyCertificateOutlined />,
   ScissorOutlined: <ScissorOutlined />,
-  EditOutlined: <EditOutlined />
+  EditOutlined: <EditOutlined />,
+  CodeOutlined: <CodeOutlined />,
+  ApiOutlined: <ApiOutlined />,
+  AuditOutlined: <AuditOutlined />,
+  QrcodeOutlined: <QrcodeOutlined />
 };
 
 const CATEGORY_ICONS = {
@@ -124,7 +132,7 @@ export default function Search() {
   };
 
   return (
-    <Box sx={{ width: 'auto', ml: { xs: 0, md: 1 }, flexShrink: 0 }}>
+    <Box sx={{ width: '100%', ml: { xs: 0, md: 1 } }}>
       <FormControl sx={{ width: { xs: '100%', md: 224 } }}>
         <OutlinedInput
           size="small"
